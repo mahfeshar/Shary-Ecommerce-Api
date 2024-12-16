@@ -1,0 +1,75 @@
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+node_modules/
+bin/
+obj/
+
+# User-specific files
+*.user
+*.lock.json
+*.suo
+*.userosscache
+*.userprefs
+
+# Logs
+*.log
+logs/
+
+# Environment variables
+.env
+.env.*
+
+# Database files
+*.mdf
+*.ldf
+
+# Configuration and Secrets
+appsettings.json
+appsettings.Development.json
+
+# Build and publish artifacts
+*.dll
+*.exe
+*.so
+*.dylib
+*.pdb
+*.cache
+*.zip
+*.tar.gz
+
+# IDE and editor files
+.vscode/
+.idea/
+*.code-workspace
+
+# Rider files
+*.idea/
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/dictionaries
+
+# Visual Studio specific files
+.vs/
+*.vscode
+*.tlog
+*.VC.db
+
+# Test results
+TestResults/
+coverage/
+*.coverage
+*.coveragexml
+
+# ReSharper files
+_ReSharper.*
+*.DotSettings.user
+
+# Temporary files
+*.tmp
+*.temp
+
+# Generated files
+!src/**/migrations/

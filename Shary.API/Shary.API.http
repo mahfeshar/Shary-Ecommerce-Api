@@ -1,0 +1,6 @@
+@Shary.API_HostAddress = http://localhost:5283
+
+GET {{Shary.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
