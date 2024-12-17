@@ -23,10 +23,10 @@ public class StoreContextSeed
         if (!_dbContext.Categories.Any())
         {
             string? categoriesData = File.ReadAllText("../Shary.Repository/Data/DataSeeding/categories.json");
-            List<ProductCategory>? categoreis = JsonSerializer.Deserialize<List<ProductCategory>>(categoriesData);
-            if (categoreis?.Count > 0)
+            List<ProductCategory>? categories = JsonSerializer.Deserialize<List<ProductCategory>>(categoriesData);
+            if (categories?.Count > 0)
             {
-                foreach (ProductCategory category in categoreis)
+                foreach (ProductCategory category in categories)
                 {
                     _dbContext.Categories.Add(category);
                 }

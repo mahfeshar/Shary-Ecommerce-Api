@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Shary.Core.Entities;
 using System.Reflection;
 
-namespace Shary.Repository;
+namespace Shary.Repository.Data;
 
 public class StoreContext : DbContext
 {

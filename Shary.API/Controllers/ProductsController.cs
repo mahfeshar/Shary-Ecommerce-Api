@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shary.Core.Entities;
 using Shary.Core.Repositories.Contract;
+using Shary.Core.Specifications.ProductSpecs;
 
 namespace Shary.API.Controllers;
 
@@ -15,7 +16,8 @@ public class ProductsController : BaseApiController
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
-        IEnumerable<Product>? products = await _productsRepo.GetAllAsync();
+        var spec = new ProductWithCategoryAndBrandSpecifications();
+        var products = await _productsRepo.GetAllWithSpecAsync(spec);
         if (products == null || !products.Any())
         {
             return NotFound(new { message = "Not Found", statusCode = 404});
@@ -25,7 +27,8 @@ public class ProductsController : BaseApiController
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
     {
-        var product = await _productsRepo.GetAsync(id);
+        ProductWithCategoryAndBrandSpecifications? spec = new ProductWithCategoryAndBrandSpecifications(id);
+        Product? product = await _productsRepo.GetWithSpecAsync(spec);
         if (product == null)
         {
             return NotFound(new { message = "Not Found", statusCode = 404 });
