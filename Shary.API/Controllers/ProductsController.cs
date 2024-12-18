@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
+using Shary.API.Dtos;
 using Shary.Core.Entities;
 using Shary.Core.Repositories.Contract;
 using Shary.Core.Specifications.ProductSpecs;
@@ -8,21 +10,23 @@ namespace Shary.API.Controllers;
 public class ProductsController : BaseApiController
 {
     private readonly IGenericRepository<Product> _productsRepo;
+    private readonly IMapper _mapper;
 
-    public ProductsController(IGenericRepository<Product> productsRepo)
+    public ProductsController(IGenericRepository<Product> productsRepo, IMapper mapper)
     {
         _productsRepo = productsRepo;
+        _mapper = mapper;
     }
     [HttpGet]
     public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
     {
-        var spec = new ProductWithCategoryAndBrandSpecifications();
-        var products = await _productsRepo.GetAllWithSpecAsync(spec);
+        ProductWithCategoryAndBrandSpecifications? spec = new ProductWithCategoryAndBrandSpecifications();
+        IEnumerable<Product>? products = await _productsRepo.GetAllWithSpecAsync(spec);
         if (products == null || !products.Any())
         {
             return NotFound(new { message = "Not Found", statusCode = 404});
         }
-        return Ok(products);
+        return Ok(_mapper.Map<IEnumerable<Product>, IEnumerable<ProductToReturnDto>>(products));
     }
     [HttpGet("{id}")]
     public async Task<ActionResult<Product>> GetProduct(int id)
@@ -33,6 +37,6 @@ public class ProductsController : BaseApiController
         {
             return NotFound(new { message = "Not Found", statusCode = 404 });
         }
-        return Ok(product);
+        return Ok(_mapper.Map<Product, ProductToReturnDto>(product));
     }
 }

@@ -1,5 +1,6 @@
 
 using Microsoft.EntityFrameworkCore;
+using Shary.API.Dtos.Helpers;
 using Shary.Core.Repositories.Contract;
 using Shary.Repository;
 using Shary.Repository.Data;
@@ -21,6 +22,9 @@ namespace Shary.API
             builder.Services.AddDbContext<StoreContext>(options 
                 => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddScoped(typeof(IGenericRepository<>),typeof(GenericRepository<>));
+
+            // Auto Mapper
+            builder.Services.AddAutoMapper(typeof(MappingProfiles));
 
             var app = builder.Build();
 
