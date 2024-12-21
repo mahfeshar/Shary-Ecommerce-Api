@@ -17,6 +17,14 @@ internal class SpecificationsEvaluator<T> where T : BaseEntity
         {
             inputQuery = inputQuery.Where(spec.Criteria);
         }
+        if (spec.OrderBy != null)
+        {
+            inputQuery = inputQuery.OrderBy(spec.OrderBy);
+        }
+        else if (spec.OrderByDesc != null)
+        {
+            inputQuery = inputQuery.OrderByDescending(spec.OrderByDesc);
+        }
         inputQuery = spec.Includes.Aggregate(inputQuery, (currentQuery, includeExpression) 
             => currentQuery.Include(includeExpression));
         return inputQuery;

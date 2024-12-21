@@ -55,6 +55,7 @@ namespace Shary.API
 
             app.UseAuthorization();
 
+            app.UseStaticFiles();
 
             app.MapControllers();
 

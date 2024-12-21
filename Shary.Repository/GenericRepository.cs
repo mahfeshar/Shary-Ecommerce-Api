@@ -15,18 +15,18 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
     {
         _dbContext = dbContext;
     }
-    public async Task<IEnumerable<T>> GetAllAsync()
+    public async Task<IReadOnlyList<T>> GetAllAsync()
     {
         // Problem : Every Entity We will add, we should add if for it
         if (typeof(T) == typeof(Product)) 
         {
             List<Product>? products =  await _dbContext.Set<Product>().Include(P => P.Brand).Include(P => P.Category).ToListAsync();
-            return (IEnumerable<T>)products;
+            return (IReadOnlyList<T>)products;
         }
         return await _dbContext.Set<T>().ToListAsync();
     }
 
-    public async Task<IEnumerable<T>> GetAllWithSpecAsync(ISpecification<T> spec)
+    public async Task<IReadOnlyList<T>> GetAllWithSpecAsync(ISpecification<T> spec)
     {
         return await ApplySpecifications(spec).ToListAsync();
     }
