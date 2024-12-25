@@ -4,6 +4,7 @@ using Shary.API.Dtos.Helpers;
 using Shary.Core.Repositories.Contract;
 using Shary.Repository;
 using Shary.Repository.Data;
+using StackExchange.Redis;
 
 namespace Shary.API
 {
@@ -25,6 +26,13 @@ namespace Shary.API
 
             // Auto Mapper
             builder.Services.AddAutoMapper(typeof(MappingProfiles));
+
+            builder.Services.AddSingleton<IConnectionMultiplexer>(serviceProvider =>
+            {
+                string? connection = builder.Configuration.GetConnectionString("Redis");
+                return ConnectionMultiplexer.Connect(connection);
+            });
+            builder.Services.AddScoped<IBasketRepository, BasketRepository>();
 
             var app = builder.Build();
 
