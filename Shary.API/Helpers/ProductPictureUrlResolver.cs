@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
+using Shary.API.Dtos;
 using Shary.Core.Entities;
 
-namespace Shary.API.Dtos.Helpers;
+namespace Shary.API.Helpers;
 
 public class ProductPictureUrlResolver : IValueResolver<Product, ProductToReturnDto, string>
 {

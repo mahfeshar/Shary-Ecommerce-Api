@@ -5,13 +5,18 @@ namespace Shary.Core.Specifications.ProductSpecs;
 
 public class ProductWithCategoryAndBrandSpecifications : BaseSpecifications<Product>
 {
-    public ProductWithCategoryAndBrandSpecifications(string? sort)
-        : base()
+    public ProductWithCategoryAndBrandSpecifications(ProductSpecParams specParams)
+        : base(P => (string.IsNullOrEmpty(specParams.search) || P.Name.ToLower().Contains(specParams.search)) 
+                            && 
+                            (!specParams.categoryId.HasValue || P.CategoryId == specParams.categoryId.Value)
+                            &&
+                            (!specParams.brandId.HasValue || P.BrandId == specParams.brandId.Value)
+              )
     {
         AddIncludesToList();
-        if (!string.IsNullOrEmpty(sort))
+        if (!string.IsNullOrEmpty(specParams.sort))
         {
-            switch (sort)
+            switch (specParams.sort)
             {
                 case "priceAsc":
                     AddOrderBy(P => P.Price);
@@ -26,6 +31,8 @@ public class ProductWithCategoryAndBrandSpecifications : BaseSpecifications<Prod
         }
         else
             AddOrderBy(P => P.Name);
+
+        ApplyPagination(specParams.PageSize * (specParams.PageIndex - 1), specParams.PageSize);
     }
     public ProductWithCategoryAndBrandSpecifications(int id)
         : base(P => P.Id == id)

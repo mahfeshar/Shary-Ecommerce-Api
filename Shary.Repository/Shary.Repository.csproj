@@ -14,4 +14,8 @@
     <ProjectReference Include="..\Shary.Core\Shary.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Identity\Config\" />
+  </ItemGroup>
+
 </Project>

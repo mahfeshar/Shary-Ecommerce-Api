@@ -27,6 +27,10 @@ internal class SpecificationsEvaluator<T> where T : BaseEntity
         }
         inputQuery = spec.Includes.Aggregate(inputQuery, (currentQuery, includeExpression) 
             => currentQuery.Include(includeExpression));
+
+        if(spec.IsPaginationEnabled) 
+            inputQuery = inputQuery.Skip(spec.Skip).Take(spec.Take);
+
         return inputQuery;
     }
 }
