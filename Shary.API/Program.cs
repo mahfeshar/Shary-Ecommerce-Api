@@ -28,14 +28,13 @@ public class Program
         builder.Services.AddDbContext<AppIdentityDbContext>(options
             => options.UseSqlServer(builder.Configuration.GetConnectionString("IdentityConnection")));
 
-        builder.Services.AddApplicationServices();
-
         builder.Services.AddSingleton<IConnectionMultiplexer>(serviceProvider =>
         {
             string? connection = builder.Configuration.GetConnectionString("Redis");
             return ConnectionMultiplexer.Connect(connection);
         });
-        builder.Services.AddScoped<IBasketRepository, BasketRepository>();
+        
+        builder.Services.AddApplicationServices();
 
         builder.Services.AddIdentity<AppUser, IdentityRole>()
             .AddEntityFrameworkStores<AppIdentityDbContext>();

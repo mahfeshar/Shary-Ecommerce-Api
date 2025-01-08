@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Shary.Repository\Shary.Repository.csproj" />
+    <ProjectReference Include="..\Shary.Service\Shary.Service.csproj" />
   </ItemGroup>
 
 </Project>

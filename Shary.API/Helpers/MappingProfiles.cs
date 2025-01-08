@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Shary.API.Dtos;
 using Shary.Core.Entities;
+using Shary.Core.Entities.Order_Aggregate;
 
 namespace Shary.API.Helpers;
 
@@ -14,5 +15,6 @@ public class MappingProfiles : Profile
             .ForMember(D => D.PictureUrl, O => O.MapFrom<ProductPictureUrlResolver>());
         CreateMap<CustomerBasketDto, CustomerBasket>();
         CreateMap<BasketItemDto, BasketItem>();
+        CreateMap<AddressDto, Address>();
     }
 }

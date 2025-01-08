@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Shary.Core\Shary.Core.csproj" />
+  </ItemGroup>
+
 </Project>

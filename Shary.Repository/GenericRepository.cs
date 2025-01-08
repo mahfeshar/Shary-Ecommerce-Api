@@ -50,6 +50,12 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await ApplySpecifications(spec).FirstOrDefaultAsync();
     }
 
+    public async Task AddAsync(T entity)
+        => await _dbContext.AddAsync(entity);
+    public void Delete(T entity)
+        => _dbContext.Remove(entity);
+    public void Update(T entity)
+        => _dbContext.Update(entity);
     private IQueryable<T> ApplySpecifications(ISpecification<T> spec)
     {
         return SpecificationsEvaluator<T>.GetQuery(_dbContext.Set<T>(), spec);

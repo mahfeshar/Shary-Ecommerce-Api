@@ -20,7 +20,7 @@ internal class OrderConfigurations : IEntityTypeConfiguration<Order>
             .WithMany()
             .OnDelete(DeleteBehavior.SetNull);
         builder.Property(O => O.Subtotal)
-            .HasColumnType("decima(18,2)");
+            .HasColumnType("decimal(18,2)");
 
     }
 }

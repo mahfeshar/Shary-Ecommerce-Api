@@ -12,7 +12,7 @@ using Shary.Repository.Data;
 namespace Shary.Repository.Data.Migrations
 {
     [DbContext(typeof(StoreContext))]
-    [Migration("20250106104615_OrderModule")]
+    [Migration("20250106110029_OrderModule")]
     partial class OrderModule
     {
         /// <inheritdoc />
@@ -80,7 +80,7 @@ namespace Shary.Repository.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("Subtotal")
-                        .HasColumnType("decima(18,2)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
