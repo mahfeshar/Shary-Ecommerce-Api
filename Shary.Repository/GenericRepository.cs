@@ -31,7 +31,7 @@ public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
         return await ApplySpecifications(spec).ToListAsync();
     }
 
-    public async Task<T?> GetAsync(int id)
+    public async Task<T?> GetByIdAsync(int id)
     {
         if (typeof(T) == typeof(Product))
         {
