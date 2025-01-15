@@ -13,8 +13,10 @@ public static class ApplicationServicesExtension
     {
         services.AddScoped(typeof(IBasketRepository), typeof(BasketRepository));
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
-        services.AddScoped(typeof(IOrderService), typeof(OrderService));
         services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
+
+        services.AddScoped(typeof(IOrderService), typeof(OrderService));
+        services.AddScoped(typeof(IProductService), typeof(ProductService));
 
         services.AddAutoMapper(typeof(MappingProfiles));
 

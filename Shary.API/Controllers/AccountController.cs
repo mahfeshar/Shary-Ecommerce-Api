@@ -36,7 +36,7 @@ public class AccountController : BaseApiController
         {
             DisplayName = user.DisplayName,
             Email = user.Email,
-            Token = "I'll add Token here"
+            Token = await _authService.CreateTokenAsync(user, _userManager)
         });
     }
     [HttpPost("register")]
@@ -56,7 +56,7 @@ public class AccountController : BaseApiController
         {
             DisplayName = user.DisplayName,
             Email = user.Email,
-            Token = "I'll add Token here"
+            Token = await _authService.CreateTokenAsync(user, _userManager)
         });
     }
 }
