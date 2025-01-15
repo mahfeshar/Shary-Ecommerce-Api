@@ -35,9 +35,7 @@ public class Program
         });
         
         builder.Services.AddApplicationServices();
-
-        builder.Services.AddIdentity<AppUser, IdentityRole>()
-            .AddEntityFrameworkStores<AppIdentityDbContext>();
+        builder.Services.AddIdentityServices();
 
         var app = builder.Build();
 

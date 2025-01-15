@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shary.API.Dtos;
 using Shary.Core.Entities.Identity;
+using Shary.Core.Services.Contract;
 
 namespace Shary.API.Controllers;
 
@@ -10,11 +11,16 @@ public class AccountController : BaseApiController
 {
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
+    private readonly IAuthService _authService;
 
-    public AccountController(UserManager<AppUser> userManager, SignInManager<AppUser> signInManager)
+    public AccountController(
+        UserManager<AppUser> userManager,
+        SignInManager<AppUser> signInManager,
+        IAuthService authService)
     {
         _userManager = userManager;
         _signInManager = signInManager;
+        _authService = authService;
     }
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto model)
