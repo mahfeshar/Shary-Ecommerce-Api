@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shary.API.Extensions;
+using Shary.API.Middlewares;
 using Shary.Core.Entities.Identity;
 using Shary.Core.Repositories.Contract;
 using Shary.Repository;
@@ -61,7 +62,9 @@ public class Program
 
         #region Configure Kestrel Middlewares
         // Configure the HTTP request pipeline.
-        app.UseMiddleware<ExceptionMiddleware>
+        
+        app.UseMiddleware<ExceptionMiddleware>();
+
         if (app.Environment.IsDevelopment())
         {
             app.UseSwaggerMiddlewares();

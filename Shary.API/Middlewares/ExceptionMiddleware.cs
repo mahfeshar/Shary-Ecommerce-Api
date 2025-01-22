@@ -21,7 +21,9 @@ public class ExceptionMiddleware
     {
         try
         {
+            // Request
             await _next.Invoke(httpContext);
+            // Response
         }
         catch (Exception e)
         {
