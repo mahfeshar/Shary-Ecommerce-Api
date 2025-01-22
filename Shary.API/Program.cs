@@ -58,8 +58,10 @@ public class Program
             var logger = loggerFactory.CreateLogger<Program>();
             logger.LogError(ex, "Error during updating migration");
         }
-        
+
+        #region Configure Kestrel Middlewares
         // Configure the HTTP request pipeline.
+        app.UseMiddleware<ExceptionMiddleware>
         if (app.Environment.IsDevelopment())
         {
             app.UseSwaggerMiddlewares();
@@ -75,6 +77,7 @@ public class Program
 
         app.MapControllers();
 
-        app.Run();
+        app.Run(); 
+        #endregion
     }
 }
