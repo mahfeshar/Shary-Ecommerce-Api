@@ -50,6 +50,8 @@ public class AccountController : BaseApiController
     [HttpPost("register")]
     public async Task<ActionResult<UserDto>> Register(RegisterDto model)
     {
+        if (CheckEmailExists(model.Email).Result.Value)
+            return BadRequest(new ApiValidationErrorResponse() { Errors = new string[] { "This Email is already used." } });
         var user = new AppUser
         {
             DisplayName = model.DisplayName,
@@ -87,5 +89,24 @@ public class AccountController : BaseApiController
         var user = await _userManager.FindUserWithAddressAsync(User);
         var address = _mapper.Map<AddressDto>(user.Address);
         return Ok(address);
+    }
+    [Authorize]
+    [HttpPut("address")]
+    public async Task<ActionResult<AddressDto>> UpdateUserAddress(AddressDto updatedAddress)
+    {
+        var address = _mapper.Map<AddressDto, Address>(updatedAddress);
+        var user = await _userManager.FindUserWithAddressAsync(User);
+        
+        address.Id = user.Address.Id;
+        user.Address = address;
+
+        var result = await _userManager.UpdateAsync(user);
+        if (!result.Succeeded) return BadRequest(new ApiResponse(400));
+        return Ok(updatedAddress);
+    }
+    [HttpGet("emailexists")]
+    public async Task<ActionResult<bool>> CheckEmailExists(string email)
+    {
+        return await _userManager.FindByEmailAsync(email) is not null;
     }
 }

@@ -22,7 +22,7 @@ public class MappingProfiles : Profile
         
         CreateMap<AddressDto, OrderAddress>();
 
-        CreateMap<UserAddress, AddressDto>();
+        CreateMap<UserAddress, AddressDto>().ReverseMap();
         
         CreateMap<Order, OrderToReturnDto>()
             .ForMember(d => d.DeliveryMethod, O => O.MapFrom(s => s.DeliveryMethod.ShortName))
