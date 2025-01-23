@@ -1,10 +1,14 @@
 ﻿
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shary.API.Dtos;
 using Shary.API.Errors;
+using Shary.API.Extensions;
 using Shary.Core.Entities.Identity;
 using Shary.Core.Services.Contract;
+using System.Security.Claims;
 
 namespace Shary.API.Controllers;
 
@@ -13,15 +17,18 @@ public class AccountController : BaseApiController
     private readonly UserManager<AppUser> _userManager;
     private readonly SignInManager<AppUser> _signInManager;
     private readonly IAuthService _authService;
+    private readonly IMapper _mapper;
 
     public AccountController(
         UserManager<AppUser> userManager,
         SignInManager<AppUser> signInManager,
-        IAuthService authService)
+        IAuthService authService,
+        IMapper mapper)
     {
         _userManager = userManager;
         _signInManager = signInManager;
         _authService = authService;
+        _mapper = mapper;
     }
     [HttpPost("login")]
     public async Task<ActionResult<UserDto>> Login(LoginDto model)
@@ -59,5 +66,26 @@ public class AccountController : BaseApiController
             Email = user.Email,
             Token = await _authService.CreateTokenAsync(user, _userManager)
         });
+    }
+    [Authorize]
+    [HttpGet]
+    public async Task<ActionResult<UserDto>> GetCurrentUser()
+    {
+        var email = User.FindFirstValue(ClaimTypes.Email);
+        var user = await _userManager.FindByEmailAsync(email);
+        return Ok(new UserDto()
+        {
+            DisplayName = user.DisplayName,
+            Email = user.Email,
+            Token = await _authService.CreateTokenAsync(user, _userManager)
+        });
+    }
+    [Authorize]
+    [HttpGet("address")]
+    public async Task<ActionResult<AddressDto>> GetUserAddress()
+    {
+        var user = await _userManager.FindUserWithAddressAsync(User);
+        var address = _mapper.Map<AddressDto>(user.Address);
+        return Ok(address);
     }
 }
