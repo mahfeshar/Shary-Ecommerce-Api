@@ -19,7 +19,11 @@ public static class IdentityServicesExtension
         services.AddIdentity<AppUser, IdentityRole>()
             .AddEntityFrameworkStores<AppIdentityDbContext>();
 
-        services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        services.AddAuthentication(options =>
+        {
+            options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+            options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+        })
             .AddJwtBearer(options =>
             {
                 options.TokenValidationParameters = new()
