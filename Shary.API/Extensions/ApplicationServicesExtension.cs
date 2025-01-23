@@ -21,9 +21,7 @@ public static class ApplicationServicesExtension
         services.AddScoped(typeof(IOrderService), typeof(OrderService));
         services.AddScoped(typeof(IProductService), typeof(ProductService));
 
-        //services.AddAutoMapper(typeof(MappingProfiles));
-
-        services.AddAutoMapper(m => m.AddProfile<MappingProfiles>());
+        services.AddAutoMapper(typeof(MappingProfiles));
         services.AddScoped<ProductPictureUrlResolver>();
 
         services.Configure<ApiBehaviorOptions>(options =>

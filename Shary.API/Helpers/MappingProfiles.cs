@@ -13,9 +13,12 @@ public class MappingProfiles : Profile
             .ForMember(D => D.Brand, O => O.MapFrom(S => S.Brand.Name))
             .ForMember(D => D.Category, O => O.MapFrom(S => S.Category.Name))
             .ForMember(D => D.PictureUrl, O => O.MapFrom<ProductPictureUrlResolver>());
+        
         CreateMap<CustomerBasketDto, CustomerBasket>();
         CreateMap<BasketItemDto, BasketItem>();
+        
         CreateMap<AddressDto, Address>();
+        
         CreateMap<Order, OrderToReturnDto>()
             .ForMember(d => d.DeliveryMethod, O => O.MapFrom(s => s.DeliveryMethod.ShortName))
             .ForMember(d => d.DeliveryMethodCost, O => O.MapFrom(s => s.DeliveryMethod.Cost));

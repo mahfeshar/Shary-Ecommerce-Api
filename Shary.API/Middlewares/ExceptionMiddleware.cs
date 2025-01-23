@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Text.Json;
-using Shary.API.Errors
+using Shary.API.Errors;
 
 namespace Shary.API.Middlewares;
 

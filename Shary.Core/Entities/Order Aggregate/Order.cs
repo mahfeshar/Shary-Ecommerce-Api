@@ -23,6 +23,6 @@ public class Order : BaseEntity
     public DeliveryMethod? DeliveryMethod { get; set; }
     public ICollection<OrderItem> Items { get; set; } = new HashSet<OrderItem>();
     public decimal Subtotal { get; set; }
-    public decimal Total() => Subtotal + DeliveryMethod.Cost;
+    public decimal GetTotal() => Subtotal + DeliveryMethod.Cost;
     public string PaymentIntentId { get; set; } = string.Empty;
 }

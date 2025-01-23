@@ -19,6 +19,8 @@ public class OrdersController : BaseApiController
         _orderService = orderService;
         _mapper = mapper;
     }
+    [ProducesResponseType(typeof(Order), 200)]
+    [ProducesResponseType(typeof(ApiResponse), 400)]
     [HttpPost]
     public async Task<ActionResult<OrderToReturnDto>> CreateOrder(OrderDto orderDto)
     {
