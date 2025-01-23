@@ -20,6 +20,7 @@ public static class ApplicationServicesExtension
 
         services.AddScoped(typeof(IOrderService), typeof(OrderService));
         services.AddScoped(typeof(IProductService), typeof(ProductService));
+        services.AddScoped(typeof(IPaymentService), typeof(PaymentService));
 
         services.AddAutoMapper(typeof(MappingProfiles));
         services.AddScoped<ProductPictureUrlResolver>();
