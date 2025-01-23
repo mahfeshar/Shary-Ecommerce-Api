@@ -30,7 +30,7 @@ public class AuthService : IAuthService
         {
             authClaims.Add(new Claim(ClaimTypes.Role, role));
         }
-        var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SeceretKey"]));
+        var authKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_configuration["JWT:SecretKey"]));
         var token = new JwtSecurityToken(
             audience: _configuration["JWT:ValidAudience"],
             issuer: _configuration["JWT:ValidIssuer"],

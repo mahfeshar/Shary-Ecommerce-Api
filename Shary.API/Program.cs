@@ -36,7 +36,7 @@ public class Program
         });
         
         builder.Services.AddApplicationServices();
-        builder.Services.AddIdentityServices();
+        builder.Services.AddIdentityServices(builder.Configuration);
 
         var app = builder.Build();
 
@@ -79,6 +79,9 @@ public class Program
         app.UseStaticFiles();
 
         app.MapControllers();
+
+        app.UseAuthentication();
+        app.UseAuthorization();
 
         app.Run(); 
         #endregion

@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shary.API.Dtos;
+using Shary.API.Errors;
 using Shary.Core.Entities.Identity;
 using Shary.Core.Services.Contract;
 
@@ -27,10 +28,10 @@ public class AccountController : BaseApiController
     {
         var user = await _userManager.FindByEmailAsync(model.Email);
         if(user ==  null) 
-            return Unauthorized();
+            return Unauthorized(new ApiResponse(401));
         var result = await _signInManager.CheckPasswordSignInAsync(user, model.Password, false);
         if(!result.Succeeded)
-            return Unauthorized();
+            return Unauthorized(new ApiResponse(401));
 
         return Ok(new UserDto
         {
@@ -51,7 +52,7 @@ public class AccountController : BaseApiController
         };
         var result = await _userManager.CreateAsync(user, model.Password);
         if (!result.Succeeded)
-            return BadRequest();
+            return BadRequest(new ApiResponse(400));
         return Ok(new UserDto
         {
             DisplayName = user.DisplayName,
