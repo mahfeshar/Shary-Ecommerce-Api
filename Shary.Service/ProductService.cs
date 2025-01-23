@@ -24,7 +24,7 @@ public class ProductService : IProductService
     public async Task<Product?> GetProductAsync(int productId)
     {
         ProductWithCategoryAndBrandSpecifications? spec = new ProductWithCategoryAndBrandSpecifications(productId);
-        Product? product = await _unitOfWork.Repository<Product>().GetWithSpecAsync(spec);
+        Product? product = await _unitOfWork.Repository<Product>().GetEntityWithSpecAsync(spec);
         return product;
     }
     public async Task<int> GetCountAsync(ProductSpecParams specParams)
