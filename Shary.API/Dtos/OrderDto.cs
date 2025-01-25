@@ -9,5 +9,5 @@ public class OrderDto
     public string BasketId { get; set; }
     [Required]
     public int DeliveryMethodId { get; set; } // Default 0 : Required - not working
-    public AddressDto ShippingAddress { get; set; }
+    public AddressDto shipToAddress { get; set; }
 }

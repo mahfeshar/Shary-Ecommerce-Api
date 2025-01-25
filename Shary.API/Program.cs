@@ -38,6 +38,14 @@ public class Program
         builder.Services.AddApplicationServices();
         builder.Services.AddIdentityServices(builder.Configuration);
 
+        builder.Services.AddCors(options =>
+        {
+            options.AddPolicy("MyPolicy", options =>
+            {
+                options.AllowAnyHeader().AllowAnyMethod().WithOrigins(builder.Configuration["FrontBaseUrl"]);
+            });
+        });
+
         var app = builder.Build();
 
         using var scope = app.Services.CreateScope();
@@ -77,6 +85,8 @@ public class Program
         app.UseStaticFiles();
 
         app.MapControllers();
+
+        app.UseCors("MyPolicy");
 
         app.UseAuthentication();
         app.UseAuthorization();

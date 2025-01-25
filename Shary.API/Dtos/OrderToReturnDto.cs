@@ -14,5 +14,5 @@ public class OrderToReturnDto
     public ICollection<OrderItemDto> Items { get; set; } = new HashSet<OrderItemDto>();
     public decimal Subtotal { get; set; }
     public decimal Total { get; set; }
-    public string PaymentIntentId { get; set; }
+    public string PaymentIntentId { get; set; };
 }

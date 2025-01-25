@@ -27,7 +27,7 @@ public class OrdersController : BaseApiController
     public async Task<ActionResult<OrderToReturnDto>> CreateOrder(OrderDto orderDto)
     {
         var buyerEmail = User.FindFirstValue(ClaimTypes.Email);
-        var address = _mapper.Map<AddressDto, Address>(orderDto.ShippingAddress);
+        var address = _mapper.Map<AddressDto, Address>(orderDto.shipToAddress);
         var order = await _orderService.CreateOrderAsync(buyerEmail, orderDto.BasketId, orderDto.DeliveryMethodId, address);
         if (order is null)
             return BadRequest(new ApiResponse(400));
@@ -48,7 +48,7 @@ public class OrdersController : BaseApiController
         if (order is null) return NotFound(new ApiResponse(404));
         return Ok(_mapper.Map<OrderToReturnDto>(order));
     }
-    [HttpGet("deliveryMethod")]
+    [HttpGet("deliveryMethods")]
     public async Task<ActionResult<IReadOnlyList<DeliveryMethod>>> GetDeliveryMethods()
     {
         var deliveryMethods = await _orderService.GetDeliveryMethodsAsync();

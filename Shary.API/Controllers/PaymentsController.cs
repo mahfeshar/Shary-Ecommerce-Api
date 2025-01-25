@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Shary.API.Errors;
 using Shary.Core.Entities;
 using Shary.Core.Services.Contract;
+using Stripe;
 
 namespace Shary.API.Controllers;
 
@@ -17,6 +18,8 @@ public class PaymentsController : BaseApiController
         _paymentService = paymentService;
     }
 
+    [ProducesResponseType(typeof(CustomerBasket), 200)]
+    [ProducesResponseType(typeof(ApiResponse), 400)]
     [HttpPost("{basketId}")]
     public async Task<ActionResult<CustomerBasket>> CreateOrUpdatePaymentIntent(string basketId)
     {

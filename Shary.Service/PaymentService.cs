@@ -52,13 +52,13 @@ public class PaymentService : IPaymentService
 
         PaymentIntentService paymentIntentService = new();
         PaymentIntent paymentIntent;
-        if (string.IsNullOrEmpty(basket.PaymentIntentId))
+        if (basket.PaymentIntentId == null)
         {
             var createOptions = new PaymentIntentCreateOptions()
             {
-                Amount = (long) basket.Items.Sum(item => item.Price * 100 * item.Quantity) + (long) shippingPrice * 100,
+                Amount = (long) basket.Items.Sum(item => (item.Price * 100) * item.Quantity) + (long) shippingPrice * 100,
                 Currency = "usd",
-                PaymentMethodTypes = new List<string> () { "card" }
+                PaymentMethodTypes = new List<string> { "card" }
             };
             paymentIntent = await paymentIntentService.CreateAsync(createOptions);
 
