@@ -133,4 +133,3 @@ src/
 
 ## Support
 For support, please create an issue in the repository.
-
