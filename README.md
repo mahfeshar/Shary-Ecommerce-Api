@@ -10,7 +10,9 @@
 - [Support](#support)
 
 ## Overview
-A scalable e-commerce platform built with modern architectural patterns and best practices. This platform leverages Entity Framework, LINQ, and follows Clean Architecture principles to provide a robust solution for e-commerce needs.
+A scalable e-commerce platform built with modern architectural patterns and best practices. This platform leverages Entity Framework, LINQ, and follows Clean Architecture principles to provide a robust solution for e-commerce needs. 
+<br><br>
+Watch the Full Walkthrough Video: [Watch Here](https://youtu.be/LVQry9npNx8)
 
 ## Architecture
 The project is structured into the following layers:
