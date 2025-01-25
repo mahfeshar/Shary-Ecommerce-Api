@@ -5,6 +5,7 @@ using Shary.Core.Entities;
 using Shary.Core.Entities.Order_Aggregate;
 using Shary.Core.Repositories.Contract;
 using Shary.Core.Services.Contract;
+using Shary.Core.Specifications.OrderSpecs;
 using Stripe;
 using Product = Shary.Core.Entities.Product;
 
@@ -75,5 +76,21 @@ public class PaymentService : IPaymentService
         }
         await _basketRepo.UpdateBasketAsync(basket);
         return basket;
+    }
+
+    public async Task<Order> UpdateIntentToSucceededOrFailed(string paymentIntentId, bool isSucceeded)
+    {
+        var spec = new OrderWithPaymentIntentSpecifications(paymentIntentId);
+        var order = await _unitOfWork.Repository<Order>().GetEntityWithSpecAsync(spec);
+        if (isSucceeded)
+            order.Status = OrderStatus.PaymentReceived;
+        else
+            order.Status = OrderStatus.PaymentFailed;
+
+        _unitOfWork.Repository<Order>().Update(order);
+
+        await _unitOfWork.CompleteAsync();
+
+        return order;
     }
 }
