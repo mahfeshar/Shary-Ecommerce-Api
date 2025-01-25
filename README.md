@@ -6,10 +6,7 @@
 - [Getting Started](#getting-started)
 - [Development Workflow](#development-workflow)
 - [Endpoints](#endpoints)
-- [Testing](#testing)
-- [Monitoring and Logging](#monitoring-and-logging)
 - [Contributing](#contributing)
-- [License](#license)
 - [Support](#support)
 
 ## Overview
